@@ -1,0 +1,893 @@
+/* Variables de Diseño Actualizadas a 2026 */
+:root {
+    --bg-dark: #0a0c10;
+    --card-bg: rgba(22, 26, 34, 0.6);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --text-primary: #f0f3f6;
+    --text-secondary: #8b949e;
+    --accent-cyan: #00f2fe;
+    --accent-purple: #4facfe;
+    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Efecto de resplandor de fondo */
+.bg-glow {
+    position: fixed;
+    top: -20%;
+    left: -10%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(79, 172, 254, 0.07) 0%, rgba(0, 0, 0, 0) 70%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 10%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 12, 16, 0.7);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: var(--accent-cyan);
+}
+
+/* Mini logo estático del navbar */
+.navbar-logo {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.nl-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0, 242, 254, 0.4);
+    background: conic-gradient(from 0deg, var(--accent-cyan), var(--accent-purple), var(--accent-cyan));
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px));
+}
+
+.nl-hexagon {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: linear-gradient(135deg, rgba(0, 242, 254, 0.35), rgba(79, 172, 254, 0.25));
+    border: 1px solid rgba(0, 242, 254, 0.3);
+}
+
+.nl-core {
+    position: absolute;
+    width: 22%;
+    height: 22%;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+    box-shadow: 0 0 6px rgba(0, 242, 254, 0.6);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--accent-cyan);
+}
+
+/* Secciones generales */
+section {
+    padding: 8rem 10% 4rem 10%;
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+    position: relative;
+}
+
+.badge {
+    background: rgba(0, 242, 254, 0.1);
+    color: var(--accent-cyan);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid rgba(0, 242, 254, 0.2);
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+.text-gradient {
+    background: linear-gradient(45deg, var(--accent-cyan), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Hero Container - Layout flex con lado izquierdo (texto) y derecho (logo) */
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 4rem;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 620px;
+}
+
+/* Logo animado - lado derecho del hero */
+.hero-logo {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========== SISTEMA DE ANIMACIÓN "CIPHER PULSE" ==========
+   Ciclo maestro de 6s sincronizado para todas las capas.
+   Fases del ciclo:
+   0%  - Estado de reposo
+   12% - Inicio del pulso: todo se expande y brilla
+   22% - Pico del pulso: máxima intensidad
+   35% - Contracción: retorno al estado base
+   50% - Recuperación completa
+   50-100% - Movimiento suave de reposo
+   ========================================================= */
+
+.codecipher-logo {
+    width: 320px;
+    height: 320px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: logo-levitate 6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+/* Anillo exterior - Giro continuo + brillo pulsante sincronizado */
+.logo-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    padding: 3px;
+    background: conic-gradient(from 0deg, var(--accent-cyan), var(--accent-purple), #00f2fe, #7c3aed, var(--accent-cyan));
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+    animation:
+        logo-spin 8s cubic-bezier(0.45, 0, 0.55, 1) infinite,
+        ring-glow 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 12px rgba(0, 242, 254, 0.25));
+    will-change: transform, filter;
+}
+
+/* Anillo interior - Contra-giro con destello retardado */
+.logo-ring-inner {
+    position: absolute;
+    width: 76%;
+    height: 76%;
+    border-radius: 50%;
+    padding: 2px;
+    background: conic-gradient(from 180deg, var(--accent-purple), var(--accent-cyan), #4facfe, #00f2fe, var(--accent-purple));
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+    animation:
+        logo-spin-reverse 10s cubic-bezier(0.45, 0, 0.55, 1) infinite,
+        ring-glow 6s ease-in-out infinite 0.3s;
+    filter: drop-shadow(0 0 8px rgba(79, 172, 254, 0.2));
+    will-change: transform, filter;
+}
+
+/* Hexágono exterior - Escala pulsante sincronizada con el ciclo maestro */
+.logo-hexagon {
+    position: absolute;
+    width: 58%;
+    height: 58%;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: linear-gradient(135deg, rgba(0, 242, 254, 0.12), rgba(79, 172, 254, 0.08));
+    border: 1.5px solid rgba(0, 242, 254, 0.25);
+    animation: hex-pulse 6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    backdrop-filter: blur(2px);
+    will-change: transform, opacity, border-color;
+}
+
+/* Hexágono interior - Rotación + fundido sincronizado */
+.logo-hexagon-inner {
+    position: absolute;
+    width: 36%;
+    height: 36%;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: linear-gradient(135deg, rgba(0, 242, 254, 0.3), rgba(79, 172, 254, 0.2));
+    border: 1px solid rgba(0, 242, 254, 0.4);
+    animation:
+        logo-spin 14s cubic-bezier(0.45, 0, 0.55, 1) infinite,
+        hex-inner-pulse 6s ease-in-out infinite;
+    will-change: transform, opacity;
+}
+
+/* Diamante central - Rotación elástica + estallido de brillo */
+.logo-diamond {
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    background: linear-gradient(45deg, var(--accent-cyan), var(--accent-purple));
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    animation:
+        diamond-spin 6s cubic-bezier(0.34, 1.56, 0.64, 1) infinite,
+        diamond-flash 6s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+    will-change: transform, box-shadow, filter;
+}
+
+/* Núcleo central - Latido doble (efecto "lub-dub") sincronizado */
+.logo-core {
+    position: absolute;
+    width: 9%;
+    height: 9%;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff, var(--accent-cyan));
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
+    animation: core-heartbeat 6s ease-in-out infinite;
+    will-change: transform, box-shadow;
+}
+
+/* Partículas orbitantes - Trayectorias elípticas sincronizadas con el pulso */
+.orbit-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.7);
+    will-change: transform, opacity, top, left, right, bottom;
+}
+
+/* Partícula 1: órbita vertical, lidera el pulso */
+.p1 {
+    top: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: particle-orbit-y 6s cubic-bezier(0.16, 1, 0.3, 1) infinite,
+               particle-glow 6s ease-in-out infinite;
+}
+
+/* Partícula 2: órbita horizontal, sigue a p1 con retardo */
+.p2 {
+    right: 4%;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: particle-orbit-x 6s cubic-bezier(0.16, 1, 0.3, 1) infinite 0.15s,
+               particle-glow 6s ease-in-out infinite 0.15s;
+}
+
+/* Partícula 3: vertical desfasada 180° (opuesta a p1, anima bottom) */
+.p3 {
+    bottom: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: particle-orbit-y-reverse 6s cubic-bezier(0.16, 1, 0.3, 1) infinite 3s,
+               particle-glow 6s ease-in-out infinite 3s;
+}
+
+/* Partícula 4: horizontal desfasada 180° (opuesta a p2, anima left) */
+.p4 {
+    left: 4%;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: particle-orbit-x-reverse 6s cubic-bezier(0.16, 1, 0.3, 1) infinite 3.15s,
+               particle-glow 6s ease-in-out infinite 3.15s;
+}
+
+/* ========== KEYFRAMES DEL SISTEMA "CIPHER PULSE" ========== */
+
+/* Rotación continua del anillo exterior */
+@keyframes logo-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Rotación continua inversa del anillo interior */
+@keyframes logo-spin-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+/* Levitación suave del logo completo */
+@keyframes logo-levitate {
+    0%, 100% { transform: translateY(0px); }
+    25% { transform: translateY(-10px); }
+    50% { transform: translateY(-18px); }
+    60% { transform: translateY(-14px); }
+    75% { transform: translateY(-5px); }
+}
+
+/* Brillo pulsante de los anillos - sincronizado con el ciclo maestro */
+@keyframes ring-glow {
+    0%, 8% {
+        filter: drop-shadow(0 0 12px rgba(0, 242, 254, 0.25));
+        opacity: 0.7;
+    }
+    15% {
+        filter: drop-shadow(0 0 30px rgba(0, 242, 254, 0.8)) drop-shadow(0 0 60px rgba(79, 172, 254, 0.4));
+        opacity: 1;
+    }
+    22% {
+        filter: drop-shadow(0 0 40px rgba(0, 242, 254, 1)) drop-shadow(0 0 80px rgba(79, 172, 254, 0.5));
+        opacity: 1;
+    }
+    32% {
+        filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.5)) drop-shadow(0 0 50px rgba(79, 172, 254, 0.3));
+        opacity: 0.85;
+    }
+    45%, 100% {
+        filter: drop-shadow(0 0 12px rgba(0, 242, 254, 0.25));
+        opacity: 0.7;
+    }
+}
+
+/* Pulso del hexágono exterior - escala y brillo de borde */
+@keyframes hex-pulse {
+    0%, 8% {
+        transform: scale(1);
+        border-color: rgba(0, 242, 254, 0.25);
+        opacity: 0.7;
+    }
+    15% {
+        transform: scale(1.06);
+        border-color: rgba(0, 242, 254, 0.6);
+        opacity: 1;
+    }
+    22% {
+        transform: scale(1.08);
+        border-color: rgba(0, 242, 254, 0.8);
+        opacity: 1;
+        box-shadow: inset 0 0 30px rgba(0, 242, 254, 0.15);
+    }
+    32% {
+        transform: scale(1.03);
+        border-color: rgba(0, 242, 254, 0.4);
+        opacity: 0.85;
+    }
+    45%, 100% {
+        transform: scale(1);
+        border-color: rgba(0, 242, 254, 0.25);
+        opacity: 0.7;
+        box-shadow: none;
+    }
+}
+
+/* Pulso del hexágono interior */
+@keyframes hex-inner-pulse {
+    0%, 10% {
+        opacity: 0.7;
+        border-color: rgba(0, 242, 254, 0.4);
+    }
+    18% {
+        opacity: 1;
+        border-color: rgba(0, 242, 254, 0.8);
+    }
+    25% {
+        opacity: 1;
+        border-color: rgba(0, 242, 254, 1);
+    }
+    35% {
+        opacity: 0.8;
+        border-color: rgba(0, 242, 254, 0.5);
+    }
+    48%, 100% {
+        opacity: 0.7;
+        border-color: rgba(0, 242, 254, 0.4);
+    }
+}
+
+/* Giro elástico del diamante */
+@keyframes diamond-spin {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(180deg); }
+    18% { transform: rotate(200deg); }
+    25% { transform: rotate(195deg); }
+    35% { transform: rotate(210deg); }
+    50% { transform: rotate(360deg); }
+    100% { transform: rotate(720deg); }
+}
+
+/* Destello del diamante sincronizado */
+@keyframes diamond-flash {
+    0%, 10% {
+        box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+        filter: brightness(1);
+    }
+    18% {
+        box-shadow: 0 0 40px rgba(0, 242, 254, 0.8), 0 0 80px rgba(79, 172, 254, 0.5);
+        filter: brightness(1.6);
+    }
+    22% {
+        box-shadow: 0 0 50px rgba(0, 242, 254, 1), 0 0 100px rgba(79, 172, 254, 0.6);
+        filter: brightness(2);
+    }
+    30% {
+        box-shadow: 0 0 30px rgba(0, 242, 254, 0.5);
+        filter: brightness(1.2);
+    }
+    45%, 100% {
+        box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+        filter: brightness(1);
+    }
+}
+
+/* Latido doble del núcleo ("lub-dub") */
+@keyframes core-heartbeat {
+    0%, 8% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
+    }
+    12% {
+        transform: scale(1.5);
+        box-shadow: 0 0 30px rgba(0, 242, 254, 1), 0 0 60px rgba(79, 172, 254, 0.6);
+    }
+    16% {
+        transform: scale(1.2);
+        box-shadow: 0 0 20px rgba(0, 242, 254, 0.8);
+    }
+    20% {
+        transform: scale(1.7);
+        box-shadow: 0 0 45px rgba(0, 242, 254, 1.2), 0 0 80px rgba(79, 172, 254, 0.7), 0 0 120px rgba(0, 242, 254, 0.3);
+    }
+    26% {
+        transform: scale(1.1);
+        box-shadow: 0 0 25px rgba(0, 242, 254, 0.7);
+    }
+    35% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+    }
+    50%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
+    }
+}
+
+/* Órbita vertical para partículas */
+@keyframes particle-orbit-y {
+    0%, 8% {
+        top: 4%;
+        opacity: 0.6;
+    }
+    18% {
+        top: 42%;
+        opacity: 1;
+        transform: translateX(-50%) scale(2);
+    }
+    22% {
+        top: 48%;
+        opacity: 1;
+        transform: translateX(-50%) scale(2.2);
+    }
+    28% {
+        top: 55%;
+        opacity: 0.8;
+        transform: translateX(-50%) scale(1.5);
+    }
+    40% {
+        top: 84%;
+        opacity: 0.5;
+    }
+    50% {
+        top: 88%;
+        opacity: 0.4;
+    }
+    60% {
+        top: 82%;
+        opacity: 0.5;
+    }
+    75% {
+        top: 40%;
+        opacity: 0.6;
+    }
+    90%, 100% {
+        top: 4%;
+        opacity: 0.6;
+    }
+}
+
+/* Órbita horizontal para partículas */
+@keyframes particle-orbit-x {
+    0%, 8% {
+        right: 4%;
+        opacity: 0.6;
+    }
+    18% {
+        right: 42%;
+        opacity: 1;
+        transform: translateY(-50%) scale(2);
+    }
+    22% {
+        right: 48%;
+        opacity: 1;
+        transform: translateY(-50%) scale(2.2);
+    }
+    28% {
+        right: 55%;
+        opacity: 0.8;
+        transform: translateY(-50%) scale(1.5);
+    }
+    40% {
+        right: 84%;
+        opacity: 0.5;
+    }
+    50% {
+        right: 88%;
+        opacity: 0.4;
+    }
+    60% {
+        right: 82%;
+        opacity: 0.5;
+    }
+    75% {
+        right: 40%;
+        opacity: 0.6;
+    }
+    90%, 100% {
+        right: 4%;
+        opacity: 0.6;
+    }
+}
+
+/* Órbita vertical inversa para partícula inferior (anima bottom) */
+@keyframes particle-orbit-y-reverse {
+    0%, 8% {
+        bottom: 4%;
+        opacity: 0.6;
+    }
+    18% {
+        bottom: 42%;
+        opacity: 1;
+        transform: translateX(-50%) scale(2);
+    }
+    22% {
+        bottom: 48%;
+        opacity: 1;
+        transform: translateX(-50%) scale(2.2);
+    }
+    28% {
+        bottom: 55%;
+        opacity: 0.8;
+        transform: translateX(-50%) scale(1.5);
+    }
+    40% {
+        bottom: 84%;
+        opacity: 0.5;
+    }
+    50% {
+        bottom: 88%;
+        opacity: 0.4;
+    }
+    60% {
+        bottom: 82%;
+        opacity: 0.5;
+    }
+    75% {
+        bottom: 40%;
+        opacity: 0.6;
+    }
+    90%, 100% {
+        bottom: 4%;
+        opacity: 0.6;
+    }
+}
+
+/* Órbita horizontal inversa para partícula izquierda (anima left) */
+@keyframes particle-orbit-x-reverse {
+    0%, 8% {
+        left: 4%;
+        opacity: 0.6;
+    }
+    18% {
+        left: 42%;
+        opacity: 1;
+        transform: translateY(-50%) scale(2);
+    }
+    22% {
+        left: 48%;
+        opacity: 1;
+        transform: translateY(-50%) scale(2.2);
+    }
+    28% {
+        left: 55%;
+        opacity: 0.8;
+        transform: translateY(-50%) scale(1.5);
+    }
+    40% {
+        left: 84%;
+        opacity: 0.5;
+    }
+    50% {
+        left: 88%;
+        opacity: 0.4;
+    }
+    60% {
+        left: 82%;
+        opacity: 0.5;
+    }
+    75% {
+        left: 40%;
+        opacity: 0.6;
+    }
+    90%, 100% {
+        right: 4%;
+        opacity: 0.6;
+    }
+}
+
+/* Brillo de partículas sincronizado con el pulso maestro */
+@keyframes particle-glow {
+    0%, 8% {
+        box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+        background: var(--accent-cyan);
+    }
+    16% {
+        box-shadow: 0 0 25px rgba(0, 242, 254, 1), 0 0 50px rgba(79, 172, 254, 0.6);
+        background: #fff;
+    }
+    22% {
+        box-shadow: 0 0 30px rgba(0, 242, 254, 1.2), 0 0 60px rgba(79, 172, 254, 0.7);
+        background: #fff;
+    }
+    30% {
+        box-shadow: 0 0 15px rgba(0, 242, 254, 0.7);
+        background: var(--accent-cyan);
+    }
+    45%, 100% {
+        box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+        background: var(--accent-cyan);
+    }
+}
+
+/* Botones con Microinteracciones */
+.btn {
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--accent-cyan), var(--accent-purple));
+    color: #000;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 242, 254, 0.3);
+}
+
+.btn-secondary {
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-secondary);
+}
+
+/* Servicios (Tarjetas Glassmorphism) */
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 2.5rem;
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 242, 254, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.icon-wrapper {
+    font-size: 2rem;
+    color: var(--accent-cyan);
+    margin-bottom: 1.5rem;
+}
+
+.service-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.service-card p {
+    color: var(--text-secondary);
+}
+
+/* Filosofía */
+.about-section {
+    background: linear-gradient(180deg, var(--bg-dark) 0%, rgba(22, 26, 34, 0.4) 50%, var(--bg-dark) 100%);
+}
+
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.highlight-quote {
+    border-left: 4px solid var(--accent-purple);
+    padding-left: 1.5rem;
+    font-style: italic;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    text-align: left;
+    display: inline-block;
+}
+
+/* Contacto */
+.contact-section {
+    display: flex;
+    justify-content: center;
+}
+
+.contact-card {
+    background: linear-gradient(135deg, rgba(22, 26, 34, 0.8) 0%, rgba(10, 12, 16, 0.8) 100%);
+    border: 1px solid var(--border-color);
+    padding: 4rem;
+    border-radius: 16px;
+    text-align: center;
+    max-width: 700px;
+    width: 100%;
+}
+
+.contact-card h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.contact-card p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+/* Footer */
+footer {
+    padding: 3rem 10%;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* --- CLASES DE ANIMACIÓN (Efecto Reveal al Scroll) --- */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar { padding: 1.5rem 5%; }
+    .nav-links { display: none; } /* En produccion real agregarias un menu hamburguesa */
+    .hero-section { padding: 0 5%; }
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+    .hero-content {
+        max-width: 100%;
+    }
+    .hero-content h1 { font-size: 2.8rem; }
+    .hero-content p { max-width: 100%; }
+    .hero-buttons { justify-content: center; }
+    .codecipher-logo {
+        width: 200px;
+        height: 200px;
+    }
+    section { padding: 6rem 5% 3rem 5%; }
+    .contact-card { padding: 2.5rem; }
+}
