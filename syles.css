@@ -130,6 +130,191 @@ section {
     gap: 1rem;
 }
 
+/* Hero Container - Layout flex con lado izquierdo (texto) y derecho (logo) */
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 4rem;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 620px;
+}
+
+/* Logo animado - lado derecho del hero */
+.hero-logo {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.codecipher-logo {
+    width: 320px;
+    height: 320px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: logo-float 6s ease-in-out infinite;
+}
+
+/* Anillo exterior giratorio (efecto de órbita/cifrado) */
+.logo-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    padding: 3px;
+    background: conic-gradient(from 0deg, var(--accent-cyan), var(--accent-purple), #00f2fe, #7c3aed, var(--accent-cyan));
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+    animation: logo-spin 10s linear infinite;
+    filter: drop-shadow(0 0 15px rgba(0, 242, 254, 0.3));
+}
+
+/* Anillo interior (contra-giro) */
+.logo-ring-inner {
+    position: absolute;
+    width: 76%;
+    height: 76%;
+    border-radius: 50%;
+    padding: 2px;
+    background: conic-gradient(from 180deg, var(--accent-purple), var(--accent-cyan), #4facfe, #00f2fe, var(--accent-purple));
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1px));
+    animation: logo-spin-reverse 8s linear infinite;
+    filter: drop-shadow(0 0 10px rgba(79, 172, 254, 0.3));
+}
+
+/* Hexágono exterior (representa el "cifrado") */
+.logo-hexagon {
+    position: absolute;
+    width: 58%;
+    height: 58%;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: linear-gradient(135deg, rgba(0, 242, 254, 0.12), rgba(79, 172, 254, 0.08));
+    border: 1.5px solid rgba(0, 242, 254, 0.25);
+    animation: logo-pulse 4s ease-in-out infinite;
+    backdrop-filter: blur(2px);
+}
+
+/* Hexágono interior */
+.logo-hexagon-inner {
+    position: absolute;
+    width: 36%;
+    height: 36%;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: linear-gradient(135deg, rgba(0, 242, 254, 0.3), rgba(79, 172, 254, 0.2));
+    border: 1px solid rgba(0, 242, 254, 0.4);
+    animation: logo-spin 15s linear infinite;
+}
+
+/* Diamante central giratorio */
+.logo-diamond {
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    background: linear-gradient(45deg, var(--accent-cyan), var(--accent-purple));
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    animation: logo-spin-reverse 6s linear infinite;
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.5), 0 0 50px rgba(79, 172, 254, 0.3);
+}
+
+/* Núcleo central pulsante */
+.logo-core {
+    position: absolute;
+    width: 9%;
+    height: 9%;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff, var(--accent-cyan));
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.8), 0 0 40px rgba(0, 242, 254, 0.4), 0 0 60px rgba(79, 172, 254, 0.2);
+    animation: core-pulse 2s ease-in-out infinite;
+}
+
+/* Partículas orbitantes */
+.orbit-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+    box-shadow: 0 0 12px rgba(0, 242, 254, 0.8), 0 0 24px rgba(0, 242, 254, 0.4);
+}
+
+.p1 {
+    top: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: orbit-y 4s ease-in-out infinite;
+}
+
+.p2 {
+    right: 4%;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: orbit-x 4s ease-in-out infinite;
+}
+
+.p3 {
+    bottom: 4%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: orbit-y 4s ease-in-out infinite 2s;
+}
+
+.p4 {
+    left: 4%;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: orbit-x 4s ease-in-out infinite 2s;
+}
+
+/* Animaciones del logo */
+@keyframes logo-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes logo-spin-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+@keyframes logo-float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-18px); }
+}
+
+@keyframes logo-pulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.06); }
+}
+
+@keyframes core-pulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 242, 254, 0.6), 0 0 40px rgba(0, 242, 254, 0.3);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 35px rgba(0, 242, 254, 1), 0 0 60px rgba(0, 242, 254, 0.5), 0 0 80px rgba(79, 172, 254, 0.3);
+        transform: scale(1.4);
+    }
+}
+
+@keyframes orbit-y {
+    0%, 100% { top: 4%; }
+    50% { top: 88%; }
+}
+
+@keyframes orbit-x {
+    0%, 100% { right: 4%; }
+    50% { right: 88%; }
+}
+
 /* Botones con Microinteracciones */
 .btn {
     padding: 0.8rem 2rem;
@@ -287,7 +472,22 @@ footer {
 @media (max-width: 768px) {
     .navbar { padding: 1.5rem 5%; }
     .nav-links { display: none; } /* En produccion real agregarias un menu hamburguesa */
+    .hero-section { padding: 0 5%; }
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+    .hero-content {
+        max-width: 100%;
+    }
     .hero-content h1 { font-size: 2.8rem; }
+    .hero-content p { max-width: 100%; }
+    .hero-buttons { justify-content: center; }
+    .codecipher-logo {
+        width: 200px;
+        height: 200px;
+    }
     section { padding: 6rem 5% 3rem 5%; }
     .contact-card { padding: 2.5rem; }
 }
